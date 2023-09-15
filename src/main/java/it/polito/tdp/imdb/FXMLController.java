@@ -50,7 +50,27 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
-    	
+    	this.txtResult.clear();
+    	String input=this.txtRank.getText();
+    	if(input=="") {
+    		this.txtResult.setText("Inserire Rank!");
+    		return;
+    	}
+    	try {
+    		Double inputNum=Double.parseDouble(input);
+    		if(inputNum>=0.0 && inputNum<=10.0) {
+    			this.model.buildGraph(inputNum);
+    		}else {
+    			this.txtResult.setText("Inserire un numero tra 0.0 e 10.0!");
+        		return;
+    		}
+    	}catch (NumberFormatException nfe) {
+    		this.txtResult.setText("Inserire un numero!");
+    		return;
+    	}
+    	this.txtResult.setText("Grafo creato!\n\n");
+    	this.txtResult.appendText("#Vertici: "+this.model.Vsize()+"\n");
+    	this.txtResult.appendText("#Archi: "+this.model.Esize()+"\n");
     }
 
     @FXML
